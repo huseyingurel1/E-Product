@@ -8,4 +8,7 @@ Projeyi indirdikten sonra Database bağlantısı için "application.properties"t
         spring.datasource.username=root
         spring.datasource.password=root
         
-ardından projeyi çalıştırıp  ( http://localhost:8080/products ) adresine giderek uygulamayı test edebilirsiniz.
+Ardından projeyi çalıştırıp  ( http://localhost:8080/products ) adresine giderek uygulamayı test edebilirsiniz.
+
+Uygulamaya ait görsellere ../resource/images içerisinden ulaşabilirsiniz.
+
