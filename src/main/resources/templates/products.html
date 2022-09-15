@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" th:href="@{/products}"> E-Product </a>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Products </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <br>
+        <br>
+        <div class = "row">
+            <div class ="col-lg-3">
+                <a th:href = "@{/products/new}" class = " btn btn-primary btn-sm mb-3"  > Add Product </a>
+            </div>
+
+        </div>
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">Ürün basariyla eklendi !</div>
+            </div>
+            <!--     error message    -->
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Kayıt başarısız Lütfen tekrar deneyin! </div>
+            </div>
+        <table class = "table table-striped table-bordered">
+            <thead class = "table-dark">
+                <tr>
+                    <th> productName</th>
+                    <th> expirationDay</th>
+                    <th> price</th>
+                    <th> moneyType</th>
+                    <th> Product Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each = "product: ${products}">
+                    <td th:text = "${product.productName}">  </td>
+                    <td th:text = "${product.expirationDay}">  </td>
+                    <td th:text = "${product.price}">  </td>
+                    <td th:text = "${product.moneyType}">  </td>
+<!--                    <td th:text = "${product.active}">  </td>-->
+                    <td>
+                        <form th:action="@{/products/{id} (id=${product.id})}" th:object = "${product}" method="POST">
+                            <div class="form-group">
+                                <div class="form-check form-switch" >
+                                    <label th:switch="${product.isActive()}">
+                                        <p th:case="true">Product  is  active</p>
+                                        <p th:case="false">Product is passive</p>
+                                    </label>
+
+                                    <input type="checkbox"  class="form-check-input" role="switch" id="active" th:name="active"  th:checked="${product.isActive()}" onChange="this.form.submit()"   />
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+</body>
+</html>
