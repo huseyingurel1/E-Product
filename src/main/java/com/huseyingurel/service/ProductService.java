@@ -10,7 +10,7 @@ public interface ProductService {
 
     Product saveProduct(Product product);
     Product getProductById(Long id);
-    List<Product> getAllProductByActive(Boolean active);
+//    List<Product> getAllProductByActive(Boolean active);
 
 
 

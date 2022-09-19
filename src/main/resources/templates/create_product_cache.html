@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Solmaz E-Product </title>
@@ -29,13 +29,22 @@
     <br>
     <br>
 
+    <!-- success message -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Taslak basariyla kaydedildi !</div>
+    </div>
+    <!--     error message    -->
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Taslak kaydedilemedi Lütfen tekrar deneyin! </div>
+    </div>
+
 
     <div class = "container">
         <div class = row>
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class =" text-center"> Create New Product</h1>
+                <h1 class =" text-center"> Create New Product Cache</h1>
                 <div class="card-body">
-                    <form th:action="@{/products}" th:object = "${product}" method="POST">
+                    <form th:action="@{/productsCache}" th:object = "${productCache}" method="POST">
 
                         <div class="form-group">
                             <label> Product Name </label>
@@ -49,22 +58,16 @@
 
                         <div class="form-group">
                             <label> Price of Product</label>
-                            <input type="number"  name="price"  th:field="*{price}" class ="form-control" placeholder ="Enter Price of Product"required />
+                            <input type="number"  name="price" th:field="*{price}" class ="form-control" placeholder ="Enter Price of Product"required />
                         </div>
 
                         <div class="form-group">
                             <label> Money Type</label>
                             <input type="text"  name="moneyType"  th:field="*{moneyType}" class ="form-control" placeholder ="Enter moneyType" required/>
                         </div>
-
-                        <div class="form-check form-switch" >
-                            <label> Product Status</label>
-                            <input type="checkbox"  class="form-check-input" role="switch" id="active" th:name="active"  th:checked="${product.isActive()}" />
-                        </div>
-
                         <br>
                         <div class="box-footer" >
-                            <button type="submit" class = "btn btn-primary"> Submit </button>
+                            <button type="submit" class = "btn btn-primary" > Submit </button>
                         </div>
 
                     </form>

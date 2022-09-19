@@ -5,7 +5,7 @@ import com.huseyingurel.repository.ProductRepository;
 import com.huseyingurel.service.ProductService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @Service
@@ -33,10 +33,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
-    @Override
-    public List<Product> getAllProductByActive(Boolean active) {
-        return Collections.singletonList(productRepository.findByActive(active));
-    }
+//    @Override
+//    public List<Product> getAllProductByActive(Boolean active) {
+//        return Collections.singletonList(productRepository.findByActive(active));
+//    }
 
 
 }

@@ -27,11 +27,9 @@ public class ProductController {
 
     @GetMapping("/products/new")
     public String createProductForm(Model model){
-
         Product product = new Product();
         model.addAttribute("product", product);
         return "create_product";
-
     }
     @PostMapping("/products")
     public String saveProduct(@ModelAttribute("product") Product product){
@@ -43,30 +41,25 @@ public class ProductController {
         return "redirect:/products?success";
     }
 
-    @PostMapping("/products/{id}")
-    public String updateProductStatus(@PathVariable Long id, @ModelAttribute("product") Product product, Model model){
+//    @PostMapping("/products/{id}")
+//    public String updateProductStatus(@PathVariable Long id, @ModelAttribute("product") Product product, Model model){
+//
+//
+//        //get product from database by id
+//        Product existingProduct = productService.getProductById(id);
+//
+//        existingProduct.setActive(!existingProduct.isActive());
+//
+//        //save updated student object
+//        productService.saveProduct(existingProduct);
+//
+//        return "redirect:/products";
+//    }
 
-
-        //get product from database by id
-        Product existingProduct = productService.getProductById(id);
-
-        existingProduct.setActive(!existingProduct.isActive());
-
-        //save updated student object
-        productService.saveProduct(existingProduct);
-
-        return "redirect:/products";
-    }
-
-    @GetMapping("/activeProducts")
-    public String listOfActiveProducts(Model model, Product product){
-        model.addAttribute("activeProducts", productService.getAllProductByActive(product.isActive()));
-        return "activeProducts";
-    }
-
-
-
-
-
+//    @GetMapping("/activeProducts")
+//    public String listOfActiveProducts(Model model, Product product){
+//        model.addAttribute("activeProducts", productService.getAllProductByActive(product.isActive()));
+//        return "activeProducts";
+//    }
 
 }
