@@ -1,85 +1,63 @@
-//package com.huseyingurel.controller;
-//
-//import com.huseyingurel.model.ProductCache;
-//import com.huseyingurel.repository.ProductCacheRepository;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@Controller
-//public class ProductCacheController {
-//    private final ProductCacheRepository productCacheRepository;
-//
-//    public ProductCacheController(ProductCacheRepository productCacheRepository) {
-//        this.productCacheRepository = productCacheRepository;
-//    }
-//
-//    @GetMapping("productHash")
-//    public List<ProductCache> getAllProducts(){
-//        return productCacheRepository.findAll();
-//    }
-//
-//    @PostMapping("productHash")
-//    public ProductCache save(@RequestBody ProductCache productCache){
-//        return productCacheRepository.save(productCache);
-//    }
-//
-//    @GetMapping("productHash/{id}")
-//    public ProductCache findProductHashById(@PathVariable Long id){
-//        return productCacheRepository.findProductHashById(id);
-//    }
-//
-//    @DeleteMapping("productHash/{id}")
-//    public String deleteProductHash(@PathVariable Long id){
-//        return productCacheRepository.deleteProductHash(id);
-//    }
-//
-//}
-
-
 package com.huseyingurel.controller;
 
+import com.huseyingurel.model.Product;
 import com.huseyingurel.model.ProductCache;
-import com.huseyingurel.service.ProductCacheService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.huseyingurel.repository.CacheRepository;
+import com.huseyingurel.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 
 @RestController
 @RequestMapping("/productCache")
 public class RestProductCacheController {
-    private ProductCacheService productCacheService;
 
-    public RestProductCacheController(ProductCacheService productCacheService) {
-        this.productCacheService = productCacheService;
+    @Autowired
+    private ProductService productService;
+
+    private CacheRepository cacheRepository;
+
+    public RestProductCacheController(CacheRepository cacheRepository) {
+        this.cacheRepository = cacheRepository;
     }
 
     @PostMapping("/new")
     public ProductCache saveProductCache(@RequestBody ProductCache productCache){
-//        productCache.setId(UUID.randomUUID().toString());
-        return productCacheService.saveCacheProduct(productCache);
+        return cacheRepository.save(productCache);
 
     }
 
     @GetMapping
-    public List<ProductCache> listProductsCache(Model model){
-        return productCacheService.getAllCacheProducts();
+    public List<ProductCache> listProductsCache(){
+        return cacheRepository.findAll();
     }
 
-//    @GetMapping("/productsCache/{id}")
-//    public ProductCache findProductsCacheById(@PathVariable Long id){
-//        return productCacheService.getProductCacheById(id);
-//    }
+    @GetMapping("/{id}")
+    public ProductCache findProduct(@PathVariable Long id){
+        return cacheRepository.findProductById(id);
+    }
 
-//    @CacheEvict(value = "test", key = "#id")
-//    @DeleteMapping("/productsCache/{id}")
-//    public String deleteProductsCache(@PathVariable Long id){
-//        return productCacheService.deleteProductsCache(id);
-//    }
+    @PostMapping("/transferDB/{id}")
+    public String transferProductDB(@PathVariable Long id){
+        ProductCache existingProductCache = cacheRepository.findProductById(id);
+        Product productDB = new Product();
+        productDB.setId(existingProductCache.getId());
+        productDB.setProductName(existingProductCache.getProductName());
+        productDB.setExpirationDay(existingProductCache.getExpirationDay());
+        productDB.setPrice(existingProductCache.getPrice());
+        productDB.setMoneyType(existingProductCache.getMoneyType());
+
+        productService.saveProduct(productDB);
+
+        cacheRepository.deleteProductById(id);
+        return "Product Cache submitted to Product Database and removed from cache";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProductCache(@PathVariable Long id){
+        return cacheRepository.deleteProductById(id);
+    }
 
 }

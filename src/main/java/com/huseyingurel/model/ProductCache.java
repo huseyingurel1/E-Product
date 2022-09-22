@@ -9,21 +9,21 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash(value = "ProductCache")
+@RedisHash("ProductCache")
 public class ProductCache implements Serializable{
 
-    private static final long serialVersionUID = -7571092848898680939L;
     @Id
-    private String id;
+    private Long id;
 
     private String productName;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private String expirationDay;
 
     private double price;
 
     private String moneyType;
+
+    private boolean active;
 
 
 }

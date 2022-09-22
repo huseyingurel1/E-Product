@@ -15,9 +15,11 @@ public class CacheRepository {
 
     public static final String HASH_KEY = "ProductCache";
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
 
+    public CacheRepository(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     public ProductCache save(ProductCache productCache) {
         redisTemplate.opsForHash().put(HASH_KEY, productCache.getId(), productCache);
@@ -29,12 +31,12 @@ public class CacheRepository {
         return redisTemplate.opsForHash().values(HASH_KEY);
     }
 
-    public ProductCache findProductHashById(String id) {
+    public ProductCache findProductById(Long id) {
         return (ProductCache) redisTemplate.opsForHash().get(HASH_KEY,id);
     }
 
-    public String deleteProductHash(String id) {
+    public String deleteProductById(Long id) {
         redisTemplate.opsForHash().delete(HASH_KEY, id);
-        return "product cache removed !";
+        return "This Product cache deleted from Cache";
     }
 }

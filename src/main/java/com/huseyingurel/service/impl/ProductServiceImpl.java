@@ -33,6 +33,16 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
+    @Override
+    public List<Product>  getProductByName(String productName) {
+        return productRepository.findByProductName(productName);
+    }
+
+    @Override
+    public List<Product> getProductByActive(boolean active) {
+        return productRepository.findByActive(active);
+    }
+
 //    @Override
 //    public List<Product> getAllProductByActive(Boolean active) {
 //        return Collections.singletonList(productRepository.findByActive(active));
