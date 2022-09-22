@@ -27,6 +27,6 @@ public class Product {
     private String moneyType;
 
     @Column(name ="active")
-    private boolean active;
+    private boolean active = false;
 
 }

@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/productCache")
-public class RestProductCacheController {
+@RequestMapping("/productsCache")
+public class ProductCacheRestController {
 
     @Autowired
     private ProductService productService;
 
     private CacheRepository cacheRepository;
 
-    public RestProductCacheController(CacheRepository cacheRepository) {
+    public ProductCacheRestController(CacheRepository cacheRepository) {
         this.cacheRepository = cacheRepository;
     }
 

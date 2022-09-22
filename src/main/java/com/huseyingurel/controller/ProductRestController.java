@@ -27,13 +27,13 @@ public class ProductRestController {
         try {
             productService.saveProduct(product);
         } catch (Exception e) {
-            return "The product couldn't save , please try again";
+            return "The product couldn't save , please fill in the required fields and try again.";
         }
         return "The product was saved successfully";
     }
 
-    @PostMapping("/{id}")
-    public String updateProductStatus(@PathVariable Long id,Product product){
+    @PutMapping("/{id}")
+    public String updateProductStatus(@PathVariable Long id){
 
 
         //get product from database by id

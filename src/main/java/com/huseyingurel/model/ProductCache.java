@@ -2,7 +2,6 @@ package com.huseyingurel.model;
 
 import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,7 +22,7 @@ public class ProductCache implements Serializable{
 
     private String moneyType;
 
-    private boolean active;
+    private boolean active = false;
 
 
 }
