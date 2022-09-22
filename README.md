@@ -1,6 +1,6 @@
 # E-Product 
 
-Bir işyerinde ürünleri sisteme kaydedip listeleyen,ürün listesinden arama yapabileceğimiz bir web uygulaması oluşturdum.
+Bir işyerinde ürünleri sisteme kaydedip listeleyen,ürün listesinden arama yapabileceğimiz bir web uygulamasının RestAPI'nı oluşturdum.
 
 Projeyi indirdikten sonra PostgreSQL bağlantısı için "application.properties"teki bağlantı ayarlarını kendi database bilgileriniz ile değiştirmelisiniz 
 ve PostgreSQL (solmaz_project) adında bir şema oluşturmalısınız .
